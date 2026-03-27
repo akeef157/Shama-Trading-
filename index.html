@@ -1,279 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shama Trading</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#0b0b0d;
-      --panel:#121216;
-      --panel-2:#1a1b20;
-      --text:#f6f7fb;
-      --muted:#b8bcc8;
-      --accent:#ff6a00;
-      --accent-2:#ff9a3c;
-      --line:rgba(255,255,255,.08);
-      --shadow:0 20px 50px rgba(0,0,0,.35);
-      --radius:24px;
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:Inter,system-ui,Arial,sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(circle at top right, rgba(255,106,0,.18), transparent 26%),
-        linear-gradient(180deg,#0b0b0d 0%, #101114 100%);
-    }
-    a{text-decoration:none;color:inherit}
-    img{max-width:100%;display:block}
-    .container{width:min(1150px,calc(100% - 32px));margin:auto}
-    .nav{
-      position:sticky;top:0;z-index:20;
-      backdrop-filter:blur(14px);
-      background:rgba(11,11,13,.75);
-      border-bottom:1px solid var(--line);
-    }
-    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:16px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand img{width:54px;height:54px;border-radius:14px;object-fit:cover;box-shadow:var(--shadow)}
-    .brand-title{font-weight:900;font-size:1.35rem;line-height:1}
-    .brand-sub{color:var(--accent-2);font-size:.83rem;margin-top:4px}
-    .nav-links{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-weight:600}
-    .hero{padding:62px 0 34px}
-    .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center}
-    .eyebrow{
-      display:inline-block;padding:10px 14px;border:1px solid rgba(255,106,0,.25);
-      background:rgba(255,106,0,.09);border-radius:999px;color:var(--accent-2);font-weight:700;
-      font-size:.92rem;margin-bottom:16px
-    }
-    h1{font-size:clamp(2.5rem,6vw,5rem);line-height:.96;margin:0 0 16px;font-weight:900;letter-spacing:-.04em}
-    .lead{font-size:1.08rem;line-height:1.7;color:var(--muted);max-width:650px}
-    .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
-    .btn{
-      border:none;border-radius:16px;padding:15px 22px;font-weight:800;cursor:pointer;
-      transition:transform .2s ease, opacity .2s ease, background .2s ease;
-      display:inline-flex;align-items:center;justify-content:center;gap:10px
-    }
-    .btn:hover{transform:translateY(-2px)}
-    .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#111}
-    .btn-secondary{background:#1a1b20;color:#fff;border:1px solid var(--line)}
-    .hero-card,.panel{
-      background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
-      border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)
-    }
-    .hero-card{overflow:hidden}
-    .hero-card img{height:100%;min-height:360px;object-fit:cover}
-    section{padding:34px 0}
-    .section-title{font-size:clamp(1.7rem,3vw,2.6rem);margin:0 0 10px;font-weight:900}
-    .section-copy{color:var(--muted);max-width:760px;line-height:1.7}
-    .inventory{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:24px}
-    .card{overflow:hidden}
-    .card img{height:230px;width:100%;object-fit:cover}
-    .card-body{padding:18px}
-    .badge{
-      display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(255,106,0,.12);
-      color:var(--accent-2);font-size:.82rem;font-weight:700;border:1px solid rgba(255,106,0,.18)
-    }
-    .card h3{margin:14px 0 8px;font-size:1.25rem}
-    .price{font-weight:800;color:var(--accent-2);margin-bottom:14px}
-    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
-    .feature{padding:22px}
-    .feature strong{display:block;font-size:1.05rem;margin-bottom:8px}
-    .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}
-    .gallery img{height:220px;width:100%;object-fit:cover;border-radius:18px;border:1px solid var(--line);box-shadow:var(--shadow)}
-    .contact-wrap{display:grid;grid-template-columns:1fr .9fr;gap:24px;margin-top:22px}
-    .contact-box,.form-box{padding:24px}
-    .contact-line{font-size:1.15rem;margin:14px 0;color:var(--muted)}
-    .phone{font-size:2rem;font-weight:900;color:#fff}
-    form{display:grid;gap:14px}
-    input,textarea{
-      width:100%;padding:15px 16px;border-radius:14px;border:1px solid var(--line);
-      background:#0d0e12;color:#fff;font:inherit
-    }
-    textarea{min-height:120px;resize:vertical}
-    .footer{padding:28px 0 46px;color:var(--muted);text-align:center}
-    .floating-wa{
-      position:fixed;right:18px;bottom:18px;z-index:40;
-      background:linear-gradient(135deg,var(--accent),var(--accent-2));
-      color:#111;padding:16px 18px;border-radius:999px;font-weight:900;box-shadow:var(--shadow)
-    }
-    @media (max-width: 980px){
-      .hero-grid,.contact-wrap{grid-template-columns:1fr}
-      .inventory,.features{grid-template-columns:repeat(2,1fr)}
-      .gallery{grid-template-columns:repeat(2,1fr)}
-    }
-    @media (max-width: 640px){
-      .nav-links{display:none}
-      .inventory,.features,.gallery{grid-template-columns:1fr}
-      .hero{padding-top:36px}
-      .phone{font-size:1.55rem}
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shama Trading</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#111;
+  color:#fff;
+}
+
+header{
+  display:flex;
+  align-items:center;
+  padding:15px;
+  background:#000;
+}
+
+header img{
+  width:50px;
+  margin-right:10px;
+}
+
+.hero{
+  padding:30px;
+  background:linear-gradient(to right,#000,#222);
+}
+
+.hero h1{
+  font-size:28px;
+}
+
+.btn{
+  padding:12px 20px;
+  background:orange;
+  color:#000;
+  text-decoration:none;
+  border-radius:8px;
+  margin-right:10px;
+  display:inline-block;
+  font-weight:bold;
+}
+
+.cars{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+  padding:20px;
+}
+
+.card{
+  background:#222;
+  padding:10px;
+  border-radius:10px;
+  text-align:center;
+}
+
+.card img{
+  width:100%;
+  border-radius:10px;
+}
+
+/* WhatsApp floating button */
+.whatsapp{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#25D366;
+  color:white;
+  padding:15px;
+  border-radius:50%;
+  text-decoration:none;
+  font-size:20px;
+}
+</style>
+
 </head>
+
 <body>
-  <div class="nav">
-    <div class="container nav-inner">
-      <div class="brand">
-        <img src="images/logo.jpeg" alt="Shama Trading logo">
-        <div>
-          <div class="brand-title">Shama Trading</div>
-          <div class="brand-sub">Used Cars & Motorcycle from Japan</div>
-        </div>
-      </div>
-      <div class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#inventory">Inventory</a>
-        <a href="#services">Services</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </div>
+
+<header>
+  <img src="logo.jpeg" alt="logo">
+  <div>
+    <h2>Shama Trading</h2>
+    <p>Used Cars & Motorcycles from Japan</p>
   </div>
+</header>
 
-  <main id="home" class="container">
-    <section class="hero">
-      <div class="hero-grid">
-        <div>
-          <div class="eyebrow">Premium Cars From Japan</div>
-          <h1>Shama Trading</h1>
-          <p class="lead">
-            Trusted Japanese car export company offering quality used vehicles, motorcycles,
-            export support, and direct customer service from Japan. Contact us directly on WhatsApp
-            for fast vehicle inquiries.
-          </p>
-          <div class="cta-row">
-            <a class="btn btn-primary" href="https://wa.me/818076484545" target="_blank" rel="noopener">WhatsApp Now</a>
-            <a class="btn btn-secondary" href="tel:+818076484545">Call Now</a>
-            <a class="btn btn-secondary" href="#inventory">View Inventory</a>
-          </div>
-        </div>
-        <div class="hero-card">
-          <img src="images/mercedes_front.jpeg" alt="Featured imported car from Japan">
-        </div>
-      </div>
-    </section>
+<div class="hero">
+  <h1>Premium Cars From Japan</h1>
+  <p>Trusted exporter. Contact us directly on WhatsApp.</p>
 
-    <section>
-      <div class="panel" style="padding:24px">
-        <h2 class="section-title">About Shama Trading</h2>
-        <p class="section-copy">
-          Shama Trading helps customers source imported cars and motorcycles from Japan with confidence.
-          We focus on trusted vehicles, export assistance, auction sourcing, and fast communication through WhatsApp.
-        </p>
-      </div>
-    </section>
+  <a class="btn" href="https://wa.me/818076484545">WhatsApp Now</a>
+</div>
 
-    <section id="inventory">
-      <h2 class="section-title">Featured Inventory</h2>
-      <p class="section-copy">Real vehicles from your collection displayed in a clean dealership-style layout.</p>
-      <div class="inventory">
-        <article class="panel card">
-          <img src="images/crown.jpeg" alt="Toyota Crown Classic">
-          <div class="card-body">
-            <span class="badge">Available in Japan</span>
-            <h3>Toyota Crown Classic</h3>
-            <div class="price">Contact for Price</div>
-            <a class="btn btn-primary" href="https://wa.me/818076484545" target="_blank" rel="noopener">Ask on WhatsApp</a>
-          </div>
-        </article>
-        <article class="panel card">
-          <img src="images/nsx.jpeg" alt="Honda NSX">
-          <div class="card-body">
-            <span class="badge">Available in Japan</span>
-            <h3>Honda NSX</h3>
-            <div class="price">Contact for Price</div>
-            <a class="btn btn-primary" href="https://wa.me/818076484545" target="_blank" rel="noopener">Ask on WhatsApp</a>
-          </div>
-        </article>
-        <article class="panel card">
-          <img src="images/toyota86.jpeg" alt="Toyota 86 Sports">
-          <div class="card-body">
-            <span class="badge">Available in Japan</span>
-            <h3>Toyota 86 Sports</h3>
-            <div class="price">Contact for Price</div>
-            <a class="btn btn-primary" href="https://wa.me/818076484545" target="_blank" rel="noopener">Ask on WhatsApp</a>
-          </div>
-        </article>
-        <article class="panel card">
-          <img src="images/mercedes_front.jpeg" alt="Mercedes Benz E-Class">
-          <div class="card-body">
-            <span class="badge">Available in Japan</span>
-            <h3>Mercedes Benz E-Class</h3>
-            <div class="price">Contact for Price</div>
-            <a class="btn btn-primary" href="https://wa.me/818076484545" target="_blank" rel="noopener">Ask on WhatsApp</a>
-          </div>
-        </article>
-        <article class="panel card">
-          <img src="images/prius.jpeg" alt="Toyota Prius Hybrid">
-          <div class="card-body">
-            <span class="badge">Available in Japan</span>
-            <h3>Toyota Prius Hybrid</h3>
-            <div class="price">Contact for Price</div>
-            <a class="btn btn-primary" href="https://wa.me/818076484545" target="_blank" rel="noopener">Ask on WhatsApp</a>
-          </div>
-        </article>
-      </div>
-    </section>
+<div class="cars">
 
-    <section id="services">
-      <h2 class="section-title">Why Choose Us</h2>
-      <div class="features">
-        <div class="panel feature"><strong>Import cars directly from Japan</strong><span class="section-copy">Direct support for sourcing trusted vehicles from Japan.</span></div>
-        <div class="panel feature"><strong>Used cars and motorcycles available</strong><span class="section-copy">Flexible inventory for car and bike buyers.</span></div>
-        <div class="panel feature"><strong>Fast export and shipping support</strong><span class="section-copy">Quick communication and export guidance.</span></div>
-        <div class="panel feature"><strong>Reliable customer service</strong><span class="section-copy">Friendly support focused on trust and clarity.</span></div>
-        <div class="panel feature"><strong>Auction vehicle sourcing assistance</strong><span class="section-copy">Help with finding the right unit from Japan.</span></div>
-        <div class="panel feature"><strong>WhatsApp inquiry support</strong><span class="section-copy">Contact directly for faster response.</span></div>
-      </div>
-    </section>
+<div class="card">
+  <img src="mercedes_front.jpeg">
+  <p>Mercedes Benz</p>
+</div>
 
-    <section id="gallery">
-      <h2 class="section-title">Vehicle Gallery</h2>
-      <p class="section-copy">A premium gallery using your real vehicle images.</p>
-      <div class="gallery">
-        <img src="images/mercedes_front.jpeg" alt="Mercedes front">
-        <img src="images/mercedes_gear.jpeg" alt="Mercedes gear selector">
-        <img src="images/mercedes_dash.jpeg" alt="Mercedes dashboard">
-        <img src="images/mercedes_badge.jpeg" alt="Mercedes badge">
-        <img src="images/mercedes_key.jpeg" alt="Mercedes key">
-        <img src="images/prius.jpeg" alt="Prius side">
-        <img src="images/prius_rear.jpeg" alt="Prius rear">
-        <img src="images/nsx.jpeg" alt="Honda NSX front">
-      </div>
-    </section>
+<div class="card">
+  <img src="mercedes_dash.jpeg">
+  <p>Interior Dashboard</p>
+</div>
 
-    <section id="contact">
-      <h2 class="section-title">Contact Us</h2>
-      <div class="contact-wrap">
-        <div class="panel contact-box">
-          <div class="contact-line">Phone / WhatsApp</div>
-          <div class="phone">+81 80-7648-4545</div>
-          <div class="cta-row">
-            <a class="btn btn-primary" href="https://wa.me/818076484545" target="_blank" rel="noopener">Open WhatsApp</a>
-            <a class="btn btn-secondary" href="tel:+818076484545">Call Now</a>
-          </div>
-          <p class="section-copy" style="margin-top:18px">Location: Japan</p>
-        </div>
-        <div class="panel form-box">
-          <form onsubmit="event.preventDefault(); window.open('https://wa.me/818076484545','_blank');">
-            <input type="text" placeholder="Your name" required>
-            <input type="tel" placeholder="Your phone number" required>
-            <textarea placeholder="Your message"></textarea>
-            <button class="btn btn-primary" type="submit">Send Inquiry</button>
-          </form>
-        </div>
-      </div>
-    </section>
+<div class="card">
+  <img src="mercedes_gear.jpeg">
+  <p>Gear System</p>
+</div>
 
-    <div class="footer">© Shama Trading</div>
-  </main>
+<div class="card">
+  <img src="mercedes_badge.jpeg">
+  <p>Mercedes Logo</p>
+</div>
 
-  <a class="floating-wa" href="https://wa.me/818076484545" target="_blank" rel="noopener">WhatsApp</a>
+<div class="card">
+  <img src="crown.jpeg">
+  <p>Toyota Crown</p>
+</div>
+
+<div class="card">
+  <img src="nsx.jpeg">
+  <p>Honda NSX</p>
+</div>
+
+</div>
+
+<a class="whatsapp" href="https://wa.me/818076484545">💬</a>
+
 </body>
 </html>
+         
+            
+
+    
+          
